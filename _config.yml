@@ -3,7 +3,7 @@
 
 title: Gaussian Mixture Models
 author: Goirik Chakrabarty, Purva Parmar
-logo: "logo-edit.svg"
+logo: "logo.svg"
 copyright: "2022"
 
 # Force re-execution of notebooks on each build.
