@@ -2,8 +2,14 @@
 # Learn more at https://jupyterbook.org/customize/toc.html
 
 format: jb-book
-root: intro
-chapters:
-- file: markdown
-- file: notebooks
-- file: markdown-notebooks
+root: index
+parts:
+- caption: Introduction
+  chapters:
+  - file: intro
+- caption: Expectation-Maximization (EM)
+  chapters:
+  - file: EM/theory
+- caption: Gibbs Sampling
+  chapters:
+  - file: Gibbs-Sampling/theory
