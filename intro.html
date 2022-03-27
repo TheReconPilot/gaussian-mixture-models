@@ -51,6 +51,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -216,6 +218,29 @@ const thebe_selector_output = ".output, .cell_output"
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#multivariate-normal-distribution">
+   Multivariate Normal Distribution
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#definitions">
+   Definitions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -228,6 +253,29 @@ const thebe_selector_output = ".output, .cell_output"
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#multivariate-normal-distribution">
+   Multivariate Normal Distribution
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#definitions">
+   Definitions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -236,6 +284,41 @@ const thebe_selector_output = ".output, .cell_output"
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="introduction">
 <h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<p>Gaussian Mixture Models can be used to represent subpopulations which are normally distributed within an overall population. It is, in essence, a superposition of multiple Gaussians.</p>
+<p>We will be considering Multivariate Gaussians, as the univariate case easily follows. The source of most of the material is <em>Pattern Recognition and Machine Learning</em> by C. Bishop <span id="id1">[<a class="reference internal" href="#id3" title="Christopher Bishop. Pattern Recognition and Machine Learning. Springer, January 2006. URL: https://www.microsoft.com/en-us/research/publication/pattern-recognition-machine-learning/.">Bis06</a>]</span></p>
+<div class="section" id="multivariate-normal-distribution">
+<h2>Multivariate Normal Distribution<a class="headerlink" href="#multivariate-normal-distribution" title="Permalink to this headline">¶</a></h2>
+<p>The Multivariate Normal <span class="math notranslate nohighlight">\(\mathcal{N}(\boldsymbol{\mu}, \boldsymbol{\Sigma})\)</span> is</p>
+<div class="math notranslate nohighlight" id="equation-multivariate-normal">
+<span class="eqno">(1)<a class="headerlink" href="#equation-multivariate-normal" title="Permalink to this equation">¶</a></span>\[P(\boldsymbol x | \boldsymbol \mu, \boldsymbol \Sigma) = \frac{1}{\sqrt{\det(2\pi\boldsymbol\Sigma)}} \exp\left(-\frac{1}{2}(\boldsymbol x - \boldsymbol \mu)^\intercal\ \boldsymbol \Sigma^{-1}\ (\boldsymbol x - \boldsymbol \mu)\right)\]</div>
+<p>Suppose the number of dimensions is <span class="math notranslate nohighlight">\(n\)</span>.</p>
+<p>Here, <span class="math notranslate nohighlight">\(\boldsymbol \mu \in \mathbb{R}^n\)</span> is the <strong>mean</strong>, and <span class="math notranslate nohighlight">\(\boldsymbol \Sigma \in \mathbb{R}^{n \times n}\)</span> is the <strong>covariance</strong>, which must be a positive semi-definite matrix.</p>
+</div>
+<div class="section" id="definitions">
+<h2>Definitions<a class="headerlink" href="#definitions" title="Permalink to this headline">¶</a></h2>
+<p>Assume</p>
+<ul class="simple">
+<li><p>There is a mixture of <span class="math notranslate nohighlight">\(K\)</span> Gaussians</p></li>
+<li><p>Each Gaussian is in a <span class="math notranslate nohighlight">\(D\)</span>-dimensional space</p></li>
+<li><p>Denote a single <span class="math notranslate nohighlight">\(D\)</span>-dimensional observation/data point as <span class="math notranslate nohighlight">\(\boldsymbol x\)</span></p></li>
+<li><p>There are <span class="math notranslate nohighlight">\(N\)</span> such observations/points.</p></li>
+</ul>
+<p>Since there are <span class="math notranslate nohighlight">\(K\)</span> Gaussians (or <strong>Clusters</strong> from here onwards), we also have the corresponding <span class="math notranslate nohighlight">\(K\)</span> means and covariance matrices.</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\boldsymbol\mu = \{\boldsymbol \mu_1, \boldsymbol \mu_2, \dots, \boldsymbol \mu_K\}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\boldsymbol\Sigma = \{\boldsymbol \Sigma_1, \boldsymbol \Sigma_2, \dots, \boldsymbol \Sigma_K\}\)</span></p></li>
+</ul>
+<p>And the entire data/observation set: <span class="math notranslate nohighlight">\(X = \{\boldsymbol x_1, \boldsymbol x_2, \dots, \boldsymbol x_N\}\)</span></p>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<p id="id2"><dl class="citation">
+<dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id1">Bis06</a></span></dt>
+<dd><p>Christopher Bishop. <em>Pattern Recognition and Machine Learning</em>. Springer, January 2006. URL: <a class="reference external" href="https://www.microsoft.com/en-us/research/publication/pattern-recognition-machine-learning/">https://www.microsoft.com/en-us/research/publication/pattern-recognition-machine-learning/</a>.</p>
+</dd>
+</dl>
+</p>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
