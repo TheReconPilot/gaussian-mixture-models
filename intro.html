@@ -234,6 +234,28 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#basic-ideas">
+   Basic Ideas
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#mixture-distribution">
+     Mixture Distribution
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#introducing-a-latent-variable">
+     Introducing a Latent Variable
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#responsibilites">
+     Responsibilites
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#references">
    References
   </a>
@@ -267,6 +289,28 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal nav-link" href="#definitions">
    Definitions
   </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#basic-ideas">
+   Basic Ideas
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#mixture-distribution">
+     Mixture Distribution
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#introducing-a-latent-variable">
+     Introducing a Latent Variable
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#responsibilites">
+     Responsibilites
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#references">
@@ -309,6 +353,71 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p><span class="math notranslate nohighlight">\(\boldsymbol\Sigma = \{\boldsymbol \Sigma_1, \boldsymbol \Sigma_2, \dots, \boldsymbol \Sigma_K\}\)</span></p></li>
 </ul>
 <p>And the entire data/observation set: <span class="math notranslate nohighlight">\(X = \{\boldsymbol x_1, \boldsymbol x_2, \dots, \boldsymbol x_N\}\)</span></p>
+<p>A GMM is a mixture of Gaussians. The <strong>proportions</strong> in which these Gaussians are present are represented as <span class="math notranslate nohighlight">\(\pi_k\)</span>. So, <span class="math notranslate nohighlight">\(\pi_k\)</span> is the proportion, also called <em>mixing probability</em>, which shows how big the <span class="math notranslate nohighlight">\(k^{th}\)</span> Gaussian will be in the mixture.</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\boldsymbol \pi = \{\pi_1, \pi_2, \dots, \pi_K\}\)</span></p></li>
+</ul>
+<p>The proportions or mixing probabilities satisfy the following:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+0 \leqslant \pi_k \leqslant 1\quad \forall\ k \\\\
+\sum_{k=1}^{K} \pi_k = 1
+\end{split}\]</div>
+</div>
+<div class="section" id="basic-ideas">
+<h2>Basic Ideas<a class="headerlink" href="#basic-ideas" title="Permalink to this headline">¶</a></h2>
+<p>We have <span class="math notranslate nohighlight">\(N\)</span> observations in a <span class="math notranslate nohighlight">\(D\)</span>-dimensional space. We want to fit the <span class="math notranslate nohighlight">\(K\)</span> Gaussians in a mixture model. So, at the end, we wish to find the parameters of <span class="math notranslate nohighlight">\(K\)</span> normally distributed subpopulations in our data/observations and we want to know the probabilities of a point belonging to each of the clusters/gaussians.</p>
+<div class="section" id="mixture-distribution">
+<h3>Mixture Distribution<a class="headerlink" href="#mixture-distribution" title="Permalink to this headline">¶</a></h3>
+<p>We have K Gaussians, each having a proportion. The mixture distribution can be written as:</p>
+<div class="math notranslate nohighlight" id="equation-mixture-dist">
+<span class="eqno">(2)<a class="headerlink" href="#equation-mixture-dist" title="Permalink to this equation">¶</a></span>\[P(\boldsymbol x) = \sum_{k=1}^{K} \pi_k\ \mathcal{N}(\boldsymbol x | \boldsymbol \mu_k, \boldsymbol \Sigma_k)\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathcal{N}(\boldsymbol x | \boldsymbol \mu_k, \boldsymbol \Sigma_k)\)</span> is the Multivariate Normal described in Equation <a class="reference internal" href="#equation-multivariate-normal">(1)</a>.</p>
+</div>
+<div class="section" id="introducing-a-latent-variable">
+<h3>Introducing a Latent Variable<a class="headerlink" href="#introducing-a-latent-variable" title="Permalink to this headline">¶</a></h3>
+<p>Latent Variables are also called Hidden Variables. Here, we introduce <span class="math notranslate nohighlight">\(\boldsymbol z\)</span>, a <span class="math notranslate nohighlight">\(K\)</span>-dimensional binary random variable which follows a 1-of-K representation.</p>
+<p>For a given observation point, when it belongs to cluster <span class="math notranslate nohighlight">\(k\)</span>, then <span class="math notranslate nohighlight">\(z_k = 1\)</span> and all other <span class="math notranslate nohighlight">\(z_i = 0\)</span>. So, <span class="math notranslate nohighlight">\(z_k \in \{0, 1\}\)</span> and <span class="math notranslate nohighlight">\(\sum_k z_k = 1\)</span>.</p>
+<p>So, <span class="math notranslate nohighlight">\(P(z_{k} = 1 | \boldsymbol x)\)</span> would represent the probability of <span class="math notranslate nohighlight">\(\boldsymbol x\)</span> belonging to cluster <span class="math notranslate nohighlight">\(k\)</span>. This is one of the things we wish to find.</p>
+<p>The marginal distribution over <span class="math notranslate nohighlight">\(\boldsymbol z\)</span> is specified in terms of the mixing probabilities (or proportions) <span class="math notranslate nohighlight">\(\pi_k\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[
+p(z_k = 1) = \pi_k
+\]</div>
+<p>Intuitively, the marginal distribution over <span class="math notranslate nohighlight">\(\boldsymbol z\)</span> should represent the probability of cluster <span class="math notranslate nohighlight">\(k\)</span>, which is exactly what the proportions are.</p>
+<p>Because <span class="math notranslate nohighlight">\(\boldsymbol z\)</span> uses a 1-of-K representation, we can write this distribution in the form:</p>
+<div class="math notranslate nohighlight">
+\[
+P(\boldsymbol z) = \prod_{k=1}^{K} \pi_k^{z_k}
+\]</div>
+<p>Similarly, the conditional distribution of <span class="math notranslate nohighlight">\(\boldsymbol x\)</span> given a particular value for <span class="math notranslate nohighlight">\(\boldsymbol z\)</span> is a Gaussian:</p>
+<div class="math notranslate nohighlight">
+\[
+P(\boldsymbol x | z_k = 1) = \mathcal{N}(\boldsymbol x | \boldsymbol \mu_k, \boldsymbol \Sigma_k)
+\]</div>
+<p>which can be written in the form</p>
+<div class="math notranslate nohighlight">
+\[
+P(\boldsymbol x | \boldsymbol z) = \prod_{k = 1}^{K} \mathcal{N}(\boldsymbol x | \boldsymbol \mu_k, \boldsymbol \Sigma_k)^{z_k}
+\]</div>
+<p>This works because only one <span class="math notranslate nohighlight">\(z_k = 1\)</span> at a time, and the rest are 0.</p>
+<p>The joint probability distribution is <span class="math notranslate nohighlight">\(P(\boldsymbol x, \boldsymbol z) = P(\boldsymbol z) P(\boldsymbol x | \boldsymbol z)\)</span>, so we can find the marginal distribution of <span class="math notranslate nohighlight">\(\boldsymbol x\)</span> by summing over <span class="math notranslate nohighlight">\(\boldsymbol z\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[
+P(\boldsymbol x) = \sum_{z} P(\boldsymbol z)P(\boldsymbol x | \boldsymbol z) = \sum_{k = 1}^{K} \pi_k\ \mathcal{N} (\boldsymbol x | \boldsymbol \mu_k, \boldsymbol \Sigma_k)
+\]</div>
+<p>For each data point / observation <span class="math notranslate nohighlight">\(\boldsymbol x_n\)</span>, there is a corresponding latent variable <span class="math notranslate nohighlight">\(\boldsymbol z_n\)</span>. We have obtained the same formulation of a Gaussian Mixture Model as Equation <a class="reference internal" href="#equation-mixture-dist">(2)</a>, this time involving a latent variable.</p>
+</div>
+<div class="section" id="responsibilites">
+<h3>Responsibilites<a class="headerlink" href="#responsibilites" title="Permalink to this headline">¶</a></h3>
+<p>The quantity <span class="math notranslate nohighlight">\(P(z_k = 1 | \boldsymbol x)\)</span>, which was the probability that the observation <span class="math notranslate nohighlight">\(\boldsymbol x\)</span> belongs to cluster <span class="math notranslate nohighlight">\(k\)</span>, is also denoted as <span class="math notranslate nohighlight">\(\gamma(z_k)\)</span>.</p>
+<div class="math notranslate nohighlight" id="equation-responsibilities">
+<span class="eqno">(3)<a class="headerlink" href="#equation-responsibilities" title="Permalink to this equation">¶</a></span>\[\begin{split}\begin{aligned}
+\gamma(z_k) \equiv P(z_k = 1 | \boldsymbol x) &amp;= \frac{P(z_k = 1) P(\boldsymbol x | z_k = 1)}{\sum_{j=1}^{K} P(z_j = 1) P(\boldsymbol x | z_j = 1)} \\ \\
+\implies \gamma(z_k) &amp;= \frac{\pi_k\ \mathcal{N}(\boldsymbol x | \boldsymbol \mu_k, \boldsymbol \Sigma_k)}{\sum_{j=1}^{K} \pi_j\ \mathcal{N}(\boldsymbol x | \boldsymbol \mu_j, \boldsymbol \Sigma_j)}
+\end{aligned}\end{split}\]</div>
+<p>This quantity is also called the <strong>responsibility</strong> that cluster/gaussian/component <span class="math notranslate nohighlight">\(k\)</span> takes for <em>explaining</em> the observation <span class="math notranslate nohighlight">\(\boldsymbol x\)</span>.</p>
+</div>
 </div>
 <div class="section" id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
