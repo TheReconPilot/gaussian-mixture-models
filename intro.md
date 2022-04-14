@@ -77,9 +77,10 @@ Intuitively, the marginal distribution over $\boldsymbol z$ should represent the
 
 Because $\boldsymbol z$ uses a 1-of-K representation, we can write this distribution in the form:
 
-$$
+```{math}
+:label: P(z)
 P(\boldsymbol z) = \prod_{k=1}^{K} \pi_k^{z_k}
-$$
+```
 
 Similarly, the conditional distribution of $\boldsymbol x$ given a particular value for $\boldsymbol z$ is a Gaussian:
 
@@ -89,9 +90,10 @@ $$
 
 which can be written in the form
 
-$$
+```{math}
+:label: P(x|z)
 P(\boldsymbol x | \boldsymbol z) = \prod_{k = 1}^{K} \mathcal{N}(\boldsymbol x | \boldsymbol \mu_k, \boldsymbol \Sigma_k)^{z_k}
-$$
+```
 
 This works because only one $z_k = 1$ at a time, and the rest are 0.
 
@@ -102,6 +104,13 @@ P(\boldsymbol x) = \sum_{z} P(\boldsymbol z)P(\boldsymbol x | \boldsymbol z) = \
 $$
 
 For each data point / observation $\boldsymbol x_n$, there is a corresponding latent variable $\boldsymbol z_n$. We have obtained the same formulation of a Gaussian Mixture Model as Equation {eq}`mixture-dist`, this time involving a latent variable.
+
+And so, for the complete observation set $\boldsymbol X$, we have:
+
+```{math}
+:label: P(X)
+P(\boldsymbol X) = \prod_{n=1}^{N} \sum_{k = 1}^{K} \pi_k\ \mathcal{N} (\boldsymbol x_n | \boldsymbol \mu_k, \boldsymbol \Sigma_k)
+```
 
 ### Responsibilites
 
@@ -120,4 +129,5 @@ This quantity is also called the **responsibility** that cluster/gaussian/compon
 ## References
 
 ```{bibliography}
+:filter: docname in docnames
 ```
