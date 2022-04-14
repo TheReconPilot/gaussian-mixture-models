@@ -56,7 +56,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Expectation-Maximization (EM)" href="EM/theory.html" />
+    <link rel="next" title="Theory - EM" href="EM/theory.html" />
     <link rel="prev" title="Gaussian Mixture Models" href="index.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -121,7 +121,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="EM/theory.html">
-   Expectation-Maximization (EM)
+   Theory - EM
   </a>
  </li>
 </ul>
@@ -386,20 +386,16 @@ p(z_k = 1) = \pi_k
 \]</div>
 <p>Intuitively, the marginal distribution over <span class="math notranslate nohighlight">\(\boldsymbol z\)</span> should represent the probability of cluster <span class="math notranslate nohighlight">\(k\)</span>, which is exactly what the proportions are.</p>
 <p>Because <span class="math notranslate nohighlight">\(\boldsymbol z\)</span> uses a 1-of-K representation, we can write this distribution in the form:</p>
-<div class="math notranslate nohighlight">
-\[
-P(\boldsymbol z) = \prod_{k=1}^{K} \pi_k^{z_k}
-\]</div>
+<div class="math notranslate nohighlight" id="equation-p-z">
+<span class="eqno">(3)<a class="headerlink" href="#equation-p-z" title="Permalink to this equation">¶</a></span>\[P(\boldsymbol z) = \prod_{k=1}^{K} \pi_k^{z_k}\]</div>
 <p>Similarly, the conditional distribution of <span class="math notranslate nohighlight">\(\boldsymbol x\)</span> given a particular value for <span class="math notranslate nohighlight">\(\boldsymbol z\)</span> is a Gaussian:</p>
 <div class="math notranslate nohighlight">
 \[
 P(\boldsymbol x | z_k = 1) = \mathcal{N}(\boldsymbol x | \boldsymbol \mu_k, \boldsymbol \Sigma_k)
 \]</div>
 <p>which can be written in the form</p>
-<div class="math notranslate nohighlight">
-\[
-P(\boldsymbol x | \boldsymbol z) = \prod_{k = 1}^{K} \mathcal{N}(\boldsymbol x | \boldsymbol \mu_k, \boldsymbol \Sigma_k)^{z_k}
-\]</div>
+<div class="math notranslate nohighlight" id="equation-p-x-z">
+<span class="eqno">(4)<a class="headerlink" href="#equation-p-x-z" title="Permalink to this equation">¶</a></span>\[P(\boldsymbol x | \boldsymbol z) = \prod_{k = 1}^{K} \mathcal{N}(\boldsymbol x | \boldsymbol \mu_k, \boldsymbol \Sigma_k)^{z_k}\]</div>
 <p>This works because only one <span class="math notranslate nohighlight">\(z_k = 1\)</span> at a time, and the rest are 0.</p>
 <p>The joint probability distribution is <span class="math notranslate nohighlight">\(P(\boldsymbol x, \boldsymbol z) = P(\boldsymbol z) P(\boldsymbol x | \boldsymbol z)\)</span>, so we can find the marginal distribution of <span class="math notranslate nohighlight">\(\boldsymbol x\)</span> by summing over <span class="math notranslate nohighlight">\(\boldsymbol z\)</span>.</p>
 <div class="math notranslate nohighlight">
@@ -407,12 +403,15 @@ P(\boldsymbol x | \boldsymbol z) = \prod_{k = 1}^{K} \mathcal{N}(\boldsymbol x |
 P(\boldsymbol x) = \sum_{z} P(\boldsymbol z)P(\boldsymbol x | \boldsymbol z) = \sum_{k = 1}^{K} \pi_k\ \mathcal{N} (\boldsymbol x | \boldsymbol \mu_k, \boldsymbol \Sigma_k)
 \]</div>
 <p>For each data point / observation <span class="math notranslate nohighlight">\(\boldsymbol x_n\)</span>, there is a corresponding latent variable <span class="math notranslate nohighlight">\(\boldsymbol z_n\)</span>. We have obtained the same formulation of a Gaussian Mixture Model as Equation <a class="reference internal" href="#equation-mixture-dist">(2)</a>, this time involving a latent variable.</p>
+<p>And so, for the complete observation set <span class="math notranslate nohighlight">\(\boldsymbol X\)</span>, we have:</p>
+<div class="math notranslate nohighlight" id="equation-p-x">
+<span class="eqno">(5)<a class="headerlink" href="#equation-p-x" title="Permalink to this equation">¶</a></span>\[P(\boldsymbol X) = \prod_{n=1}^{N} \sum_{k = 1}^{K} \pi_k\ \mathcal{N} (\boldsymbol x_n | \boldsymbol \mu_k, \boldsymbol \Sigma_k)\]</div>
 </div>
 <div class="section" id="responsibilites">
 <h3>Responsibilites<a class="headerlink" href="#responsibilites" title="Permalink to this headline">¶</a></h3>
 <p>The quantity <span class="math notranslate nohighlight">\(P(z_k = 1 | \boldsymbol x)\)</span>, which was the probability that the observation <span class="math notranslate nohighlight">\(\boldsymbol x\)</span> belongs to cluster <span class="math notranslate nohighlight">\(k\)</span>, is also denoted as <span class="math notranslate nohighlight">\(\gamma(z_k)\)</span>.</p>
 <div class="math notranslate nohighlight" id="equation-responsibilities">
-<span class="eqno">(3)<a class="headerlink" href="#equation-responsibilities" title="Permalink to this equation">¶</a></span>\[\begin{split}\begin{aligned}
+<span class="eqno">(6)<a class="headerlink" href="#equation-responsibilities" title="Permalink to this equation">¶</a></span>\[\begin{split}\begin{aligned}
 \gamma(z_k) \equiv P(z_k = 1 | \boldsymbol x) &amp;= \frac{P(z_k = 1) P(\boldsymbol x | z_k = 1)}{\sum_{j=1}^{K} P(z_j = 1) P(\boldsymbol x | z_j = 1)} \\ \\
 \implies \gamma(z_k) &amp;= \frac{\pi_k\ \mathcal{N}(\boldsymbol x | \boldsymbol \mu_k, \boldsymbol \Sigma_k)}{\sum_{j=1}^{K} \pi_j\ \mathcal{N}(\boldsymbol x | \boldsymbol \mu_j, \boldsymbol \Sigma_j)}
 \end{aligned}\end{split}\]</div>
@@ -421,12 +420,13 @@ P(\boldsymbol x) = \sum_{z} P(\boldsymbol z)P(\boldsymbol x | \boldsymbol z) = \
 </div>
 <div class="section" id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
-<p id="id2"><dl class="citation">
+<div class="docutils container" id="id2">
+<dl class="citation">
 <dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id1">Bis06</a></span></dt>
 <dd><p>Christopher Bishop. <em>Pattern Recognition and Machine Learning</em>. Springer, January 2006. URL: <a class="reference external" href="https://www.microsoft.com/en-us/research/publication/pattern-recognition-machine-learning/">https://www.microsoft.com/en-us/research/publication/pattern-recognition-machine-learning/</a>.</p>
 </dd>
 </dl>
-</p>
+</div>
 </div>
 </div>
 
@@ -465,7 +465,7 @@ P(\boldsymbol x) = \sum_{z} P(\boldsymbol z)P(\boldsymbol x | \boldsymbol z) = \
     <a class='right-next' id="next-link" href="EM/theory.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Expectation-Maximization (EM)</p>
+        <p class="prev-next-title">Theory - EM</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
