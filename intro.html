@@ -53,6 +53,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -122,6 +123,11 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="EM/theory.html">
    Theory - EM
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="EM/Multivariate/playground-3d.html">
+   GMM - Multivariate - Playground
   </a>
  </li>
 </ul>
@@ -434,8 +440,8 @@ P(\boldsymbol x) = \sum_{z} P(\boldsymbol z)P(\boldsymbol x | \boldsymbol z) = \
     {
         requestKernel: true,
         binderOptions: {
-            repo: "binder-examples/jupyter-stacks-datascience",
-            ref: "master",
+            repo: "TheReconPilot/gaussian-mixture-models",
+            ref: "main",
         },
         codeMirrorConfig: {
             theme: "abcdef",
