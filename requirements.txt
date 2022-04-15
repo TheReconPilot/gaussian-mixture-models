@@ -1,3 +1,8 @@
 jupyter-book
 matplotlib
 numpy
+scikit-learn
+scipy
+seaborn
+plotly
+tqdm
