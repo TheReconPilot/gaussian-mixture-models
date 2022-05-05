@@ -7,10 +7,12 @@ parts:
 - caption: Introduction
   chapters:
   - file: intro
+  - file: metrics
 - caption: Expectation-Maximization (EM)
   chapters:
   - file: EM/theory
   - file: EM/Multivariate/playground-3d
+  - file: EM/Experiments
 - caption: Gibbs Sampling
   chapters:
   - file: Gibbs-Sampling/theory
