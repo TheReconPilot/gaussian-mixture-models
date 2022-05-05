@@ -51,6 +51,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -221,6 +223,60 @@ const thebe_selector_output = ".output, .cell_output"
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#motivation">
+   Motivation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#background">
+   Background
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#monte-carlo">
+     Monte Carlo
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#monte-carlo-markov-chain">
+     Monte Carlo Markov Chain
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   Gibbs Sampling
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-gibbs-sampler-for-unknown-mu-and-sigma">
+     Example: Gibbs Sampler for unknown
+     <span class="math notranslate nohighlight">
+      \(\mu\)
+     </span>
+     and
+     <span class="math notranslate nohighlight">
+      \(\sigma\)
+     </span>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -233,6 +289,60 @@ const thebe_selector_output = ".output, .cell_output"
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#motivation">
+   Motivation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#background">
+   Background
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#monte-carlo">
+     Monte Carlo
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#monte-carlo-markov-chain">
+     Monte Carlo Markov Chain
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   Gibbs Sampling
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-gibbs-sampler-for-unknown-mu-and-sigma">
+     Example: Gibbs Sampler for unknown
+     <span class="math notranslate nohighlight">
+      \(\mu\)
+     </span>
+     and
+     <span class="math notranslate nohighlight">
+      \(\sigma\)
+     </span>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -241,6 +351,63 @@ const thebe_selector_output = ".output, .cell_output"
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="gibbs-sampling">
 <h1>Gibbs Sampling<a class="headerlink" href="#gibbs-sampling" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="motivation">
+<h2>Motivation<a class="headerlink" href="#motivation" title="Permalink to this headline">¶</a></h2>
+<p>Calculating a quantity from a probabilistic model is referred to more generally as probabilistic inference, or simply inference.</p>
+<p>For example, we may be interested in calculating an expected probability, estimating the density, or other properties of the probability distribution. This is the goal of the probabilistic model, and the name of the inference performed often takes on the name of the probabilistic model, e.g. Bayesian Inference is performed with a Bayesian probabilistic model.</p>
+<p>The direct calculation of the desired quantity from a model of interest is intractable for all but the most trivial probabilistic models. Instead, the expected probability or density must be approximated by other means.</p>
+<blockquote>
+<div><p>For most probabilistic models of practical interest, exact inference is intractable, and so we have to resort to some form of approximation.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Pattern Recognition and Machine Learning, 2006 <span id="id1">[<a class="reference internal" href="../intro.html#id3" title="Christopher Bishop. Pattern Recognition and Machine Learning. Springer, January 2006. URL: https://www.microsoft.com/en-us/research/publication/pattern-recognition-machine-learning/.">Bis06</a>]</span></p></li>
+</ul>
+</div>
+<div class="section" id="background">
+<h2>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="monte-carlo">
+<h3>Monte Carlo<a class="headerlink" href="#monte-carlo" title="Permalink to this headline">¶</a></h3>
+<p>The solution to the aboce problem is to draw independent samples from the probability distribution, then repeat this process many times to approximate the desired quantity. This is called Monte Carlo sampling.</p>
+<p>The problem with Monte Carlo sampling is that it does not work well in high-dimensions:-</p>
+<ol class="simple">
+<li><p>The curse of dimensionality, where the volume of the sample space increases exponentially with the number of parameters (dimensions).</p></li>
+<li><p>This is because Monte Carlo sampling assumes that each random sample drawn from the target distribution is independent and can be independently drawn. This is typically not the case or intractable for inference with Bayesian structured or graphical probabilistic models.</p></li>
+</ol>
+</div>
+<div class="section" id="monte-carlo-markov-chain">
+<h3>Monte Carlo Markov Chain<a class="headerlink" href="#monte-carlo-markov-chain" title="Permalink to this headline">¶</a></h3>
+<p>To deal with the above drawbacks of Monte Carlo methods, Markov Chain Monte Carlo (MCMC) is used for performing inference for probability distributions where independent samples from the distribution cannot be drawn, or cannot be drawn easily.</p>
+<p>Samples are drawn from the probability distribution by constructing a Markov Chain, where the next sample that is drawn from the probability distribution is dependent upon the last sample that was drawn. The idea is that the chain will settle on (find steady state) on the desired quantity we are inferring.</p>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>Gibbs Sampling<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>The Gibbs Sampling algorithm is an approach to constructing a Markov chain where the probability of the next sample is calculated as the conditional probability given the prior sample.</p>
+<p>Given a target density <span class="math notranslate nohighlight">\(\pi(x_1, \hdots, x_d)\)</span> we sample through sampling from <span class="math notranslate nohighlight">\(\pi(x_i | x{-i})\)</span> to update the <span class="math notranslate nohighlight">\(i^{th}\)</span> component.</p>
+<p>If our current state is <span class="math notranslate nohighlight">\((x_n, y_n, z_n)\)</span> at the <span class="math notranslate nohighlight">\(n^{th}\)</span> iteration, then we update our parameter values withthe following steps:</p>
+<ol class="simple">
+<li><p>Sample <span class="math notranslate nohighlight">\(x_{n+1} \sim \pi(x | y_n, z_n)\)</span></p></li>
+<li><p>Sample <span class="math notranslate nohighlight">\(y_{n+1} \sim \pi(y | x_{n+1}, z_n)\)</span></p></li>
+<li><p>Sample <span class="math notranslate nohighlight">\(z_{n+1} \sim \pi(x | x_{n+1}, y_{n+1})\)</span></p></li>
+</ol>
+<p>At each step of the sampling we use the most recent values of all the other components in the full conditional distribution. <span id="id3">[<a class="reference internal" href="#id7" title="Donald Geman Stuart Geman. Stochastic Relaxation, Gibbs Distributions, and the Bayesian Restoration of Images. IEEE Transactions on Pattern Analysis and Machine Intelligence, 1984. URL: http://image.diku.dk/imagecanon/material/GemanPAMI84.pdf.">SG84</a>]</span> showed that if  <span class="math notranslate nohighlight">\(x\)</span>  is the density of our parameters at the <span class="math notranslate nohighlight">\(n^{th}\)</span> iteration, as <span class="math notranslate nohighlight">\(n \rightarrow \infty\)</span> then <span class="math notranslate nohighlight">\(p(x_n, y_n, z_n) \rightarrow p(x,y,z)\)</span>.</p>
+<div class="section" id="example-gibbs-sampler-for-unknown-mu-and-sigma">
+<h3>Example: Gibbs Sampler for unknown <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span><a class="headerlink" href="#example-gibbs-sampler-for-unknown-mu-and-sigma" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<div class="docutils container" id="id4">
+<dl class="citation">
+<dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="#id1">Bis06</a></span></dt>
+<dd><p>Christopher Bishop. <em>Pattern Recognition and Machine Learning</em>. Springer, January 2006. URL: <a class="reference external" href="https://www.microsoft.com/en-us/research/publication/pattern-recognition-machine-learning/">https://www.microsoft.com/en-us/research/publication/pattern-recognition-machine-learning/</a>.</p>
+</dd>
+<dt class="label" id="id7"><span class="brackets"><a class="fn-backref" href="#id3">SG84</a></span></dt>
+<dd><p>Donald Geman Stuart Geman. <em>Stochastic Relaxation, Gibbs Distributions, and the Bayesian Restoration of Images</em>. IEEE Transactions on Pattern Analysis and Machine Intelligence, 1984. URL: <a class="reference external" href="http://image.diku.dk/imagecanon/material/GemanPAMI84.pdf">http://image.diku.dk/imagecanon/material/GemanPAMI84.pdf</a>.</p>
+</dd>
+</dl>
+</div>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
