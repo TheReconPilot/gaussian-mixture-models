@@ -36,11 +36,5 @@ best_model = multigibbs_gibbs(y, k, N_itter, burnin)
 
 # Gibbsampler with multiple initialisation
 multi_z_est = best_model[-2]
-
-# Gibbs with burnin and multiple initialisation
-multi_trace = best_model[-1]
-multi_param_dict = make_param_dict(trace=multi_trace)
-multi_z_est_mean = pred_label(data=y, params_dict=params_dict)
-
 -------------------
 

@@ -301,20 +301,24 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># mu = [0,4,8,16]</span>
-<span class="c1"># sigmas = [1,1,2,3]</span>
-<span class="c1"># phi = [.2,.2,.2,.4]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mu</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">16</span><span class="p">]</span>
+<span class="n">sigmas</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">phi</span> <span class="o">=</span> <span class="p">[</span><span class="mf">.2</span><span class="p">,</span><span class="mf">.2</span><span class="p">,</span><span class="mf">.2</span><span class="p">,</span><span class="mf">.4</span><span class="p">]</span>
 <span class="n">k</span> <span class="o">=</span> <span class="mi">4</span>
-<span class="n">mu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">low</span><span class="o">=-</span><span class="mi">50</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
-<span class="n">sigmas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">low</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
-<span class="n">phi</span> <span class="o">=</span> <span class="n">proportion</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="c1"># Uncomment to view results for random data</span>
+
+<span class="c1"># mu = np.random.uniform(low=-50, high=50, size=k)</span>
+<span class="c1"># sigmas = np.random.uniform(low=0.1, high=10, size=k)</span>
+<span class="c1"># phi = proportion(k=k, n=100)</span>
+
 <span class="n">n</span> <span class="o">=</span> <span class="mi">1000</span>
 <span class="n">y</span><span class="p">,</span> <span class="n">class_list</span> <span class="o">=</span> <span class="n">data_gen</span><span class="p">(</span><span class="n">mu</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">sigmas</span><span class="o">=</span><span class="n">sigmas</span><span class="p">,</span> <span class="n">phi</span><span class="o">=</span><span class="n">phi</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">y</span><span class="p">),</span><span class="nb">max</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="mi">500</span><span class="p">)</span>
@@ -375,7 +379,6 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="p">]</span> 
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="n">legend_elements</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper right&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;end_param.png&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -397,7 +400,6 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="p">]</span> 
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="n">legend_elements</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper right&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;mean_param.png&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -418,31 +420,10 @@ const thebe_selector_output = ".output, .cell_output"
 
 <span class="c1"># Gibbsampler with multiple initialisation</span>
 <span class="n">multi_z_est</span> <span class="o">=</span> <span class="n">best_model</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
-
-<span class="c1"># Gibbs with burnin and multiple initialisation</span>
-<span class="n">multi_trace</span> <span class="o">=</span> <span class="n">best_model</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">multi_param_dict</span> <span class="o">=</span> <span class="n">make_param_dict</span><span class="p">(</span><span class="n">trace</span><span class="o">=</span><span class="n">multi_trace</span><span class="p">)</span>
-<span class="n">multi_z_est_mean</span> <span class="o">=</span> <span class="n">pred_label</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">params_dict</span><span class="o">=</span><span class="n">params_dict</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/work/gaussian-mixture-models/gaussian-mixture-models/Gibbs-Sampling/gibbs_sampler.py:71: RuntimeWarning: invalid value encountered in true_divide
-  pi_i = a / np.sum(a, axis=1)[:,None]
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>pvals &lt; 0, pvals &gt; 1 or pvals contains NaNs
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>pvals &lt; 0, pvals &gt; 1 or pvals contains NaNs
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
 <span class="nn">Input In [11],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
@@ -496,45 +477,6 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">class_list</span><span class="p">,</span> <span class="n">z_est</span><span class="p">)</span>
-<span class="n">score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">class_list</span><span class="p">,</span> <span class="n">z_est_mean</span><span class="p">)</span>
-<span class="n">score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">class_list</span><span class="p">,</span> <span class="n">multi_z_est</span><span class="p">)</span>
-<span class="n">score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">class_list</span><span class="p">,</span> <span class="n">multi_z_est_mean</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rand Index = 0.817
-Adjusted Rand Index = 0.633
-Silhouette Score = 0.386
-Rand Index = 0.802
-Adjusted Rand Index = 0.571
-Silhouette Score = 0.595
-Rand Index = 0.818
-Adjusted Rand Index = 0.640
-Silhouette Score = 0.625
-Rand Index = 0.802
-Adjusted Rand Index = 0.571
-Silhouette Score = 0.595
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/goirik/.pyenv/versions/3.10.2/envs/semproj/lib/python3.10/site-packages/sklearn/utils/validation.py:993: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
-  y = column_or_1d(y, warn=True)
-/home/goirik/.pyenv/versions/3.10.2/envs/semproj/lib/python3.10/site-packages/sklearn/utils/validation.py:993: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
-  y = column_or_1d(y, warn=True)
-/home/goirik/.pyenv/versions/3.10.2/envs/semproj/lib/python3.10/site-packages/sklearn/utils/validation.py:993: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
-  y = column_or_1d(y, warn=True)
-/home/goirik/.pyenv/versions/3.10.2/envs/semproj/lib/python3.10/site-packages/sklearn/utils/validation.py:993: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
-  y = column_or_1d(y, warn=True)
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.8022122122122122, 0.5706543096554942, 0.5950464470185121]
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
 </pre></div>
 </div>
@@ -553,35 +495,46 @@ Silhouette Score = 0.595
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span><span class="o">.</span><span class="n">shape</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1000,)
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rs</span> <span class="o">=</span> <span class="n">rand_score</span><span class="p">(</span><span class="n">class_list</span><span class="p">,</span> <span class="n">kmean_cat</span><span class="p">)</span>
-<span class="n">ars</span> <span class="o">=</span> <span class="n">adjusted_rand_score</span><span class="p">(</span><span class="n">class_list</span><span class="p">,</span> <span class="n">kmean_cat</span><span class="p">)</span>
-<span class="n">ss</span> <span class="o">=</span> <span class="n">silhouette_score</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">kmean_cat</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Scores for baseline Gibbs Sampler&quot;</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">class_list</span><span class="p">,</span> <span class="n">z_est</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Rand Index = </span><span class="si">{</span><span class="n">rs</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Adjusted Rand Index = </span><span class="si">{</span><span class="n">ars</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Silhouette Score = </span><span class="si">{</span><span class="n">ss</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Scores for Gibbs Sampler with burnin&quot;</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">class_list</span><span class="p">,</span> <span class="n">z_est_mean</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Scores for Gibbs Sampler with multiple initialisation&quot;</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">class_list</span><span class="p">,</span> <span class="n">multi_z_est</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Scores for Sklearn KMean&quot;</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">class_list</span><span class="p">,</span> <span class="n">kmean_cat</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rand Index = 0.776
-Adjusted Rand Index = 0.482
-Silhouette Score = 0.649
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Scores for baseline Gibbs Sampler
+Rand Index = 0.530
+Adjusted Rand Index = -0.018
+Silhouette Score = -0.080
+Scores for Gibbs Sampler with burnin
+Rand Index = 0.877
+Adjusted Rand Index = 0.735
+Silhouette Score = 0.680
+Scores for Gibbs Sampler with multiple initialisation
+Rand Index = 0.920
+Adjusted Rand Index = 0.832
+Silhouette Score = 0.359
+Scores for Sklearn KMean
+Rand Index = 0.921
+Adjusted Rand Index = 0.827
+Silhouette Score = 0.707
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/goirik/.pyenv/versions/3.10.2/envs/semproj/lib/python3.10/site-packages/sklearn/utils/validation.py:993: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
+  y = column_or_1d(y, warn=True)
+/home/goirik/.pyenv/versions/3.10.2/envs/semproj/lib/python3.10/site-packages/sklearn/utils/validation.py:993: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
+  y = column_or_1d(y, warn=True)
+/home/goirik/.pyenv/versions/3.10.2/envs/semproj/lib/python3.10/site-packages/sklearn/utils/validation.py:993: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
+  y = column_or_1d(y, warn=True)
+/home/goirik/.pyenv/versions/3.10.2/envs/semproj/lib/python3.10/site-packages/sklearn/utils/validation.py:993: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
   y = column_or_1d(y, warn=True)
 </pre></div>
 </div>
@@ -605,12 +558,11 @@ Silhouette Score = 0.649
 <span class="n">fig</span><span class="o">.</span><span class="n">set_figheight</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">set_figwidth</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;trace_plot.png&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Unknown-mu-sigma-Playground_18_0.png" src="../_images/Unknown-mu-sigma-Playground_18_0.png" />
+<img alt="../_images/Unknown-mu-sigma-Playground_15_0.png" src="../_images/Unknown-mu-sigma-Playground_15_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
