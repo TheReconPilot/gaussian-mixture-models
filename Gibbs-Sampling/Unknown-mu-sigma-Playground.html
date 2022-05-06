@@ -428,19 +428,44 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Scores for baseline Gibbs Sampler&quot;</span><span class="p">)</span>
 <span class="n">_</span> <span class="o">=</span> <span class="n">score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">class_list</span><span class="p">,</span> <span class="n">z_est</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Scores for Gibbs Sampler with burnin&quot;</span><span class="p">)</span>
 <span class="n">_</span> <span class="o">=</span> <span class="n">score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">class_list</span><span class="p">,</span> <span class="n">z_est_mean</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Scores for Gibbs Sampler with multiple initialisation&quot;</span><span class="p">)</span>
 <span class="n">_</span> <span class="o">=</span> <span class="n">score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">class_list</span><span class="p">,</span> <span class="n">multi_z_est</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Scores for Sklearn KMean&quot;</span><span class="p">)</span>
 <span class="n">_</span> <span class="o">=</span> <span class="n">score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">class_list</span><span class="p">,</span> <span class="n">kmean_cat</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Scores for baseline Gibbs Sampler
+Rand Index = 0.891
+Adjusted Rand Index = 0.734
+Silhouette Score = 0.494
+
+Scores for Gibbs Sampler with burnin
+Rand Index = 0.934
+Adjusted Rand Index = 0.837
+Silhouette Score = 0.602
+
+Scores for Gibbs Sampler with multiple initialisation
+Rand Index = 0.920
+Adjusted Rand Index = 0.804
+Silhouette Score = 0.566
+
+Scores for Sklearn KMean
+Rand Index = 0.846
+Adjusted Rand Index = 0.610
+Silhouette Score = 0.583
+</pre></div>
+</div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/utils/validation.py:993: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
   y = column_or_1d(y, warn=True)
 /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/utils/validation.py:993: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
@@ -449,24 +474,6 @@ const thebe_selector_output = ".output, .cell_output"
   y = column_or_1d(y, warn=True)
 /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/sklearn/utils/validation.py:993: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
   y = column_or_1d(y, warn=True)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Scores for baseline Gibbs Sampler
-Rand Index = 0.891
-Adjusted Rand Index = 0.734
-Silhouette Score = 0.494
-Scores for Gibbs Sampler with burnin
-Rand Index = 0.934
-Adjusted Rand Index = 0.837
-Silhouette Score = 0.602
-Scores for Gibbs Sampler with multiple initialisation
-Rand Index = 0.920
-Adjusted Rand Index = 0.804
-Silhouette Score = 0.566
-Scores for Sklearn KMean
-Rand Index = 0.846
-Adjusted Rand Index = 0.610
-Silhouette Score = 0.583
 </pre></div>
 </div>
 </div>
