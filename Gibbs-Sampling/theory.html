@@ -276,6 +276,37 @@ const thebe_selector_output = ".output, .cell_output"
       \(\sigma\)
      </span>
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#full-conditional-for-mu">
+       Full Conditional for
+       <span class="math notranslate nohighlight">
+        \(\mu\)
+       </span>
+       :
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#full-conditional-for-sigma-2">
+       Full Conditional for
+       <span class="math notranslate nohighlight">
+        \(\sigma^2\)
+       </span>
+       :
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#full-conditional-for-pi">
+         Full conditional for
+         <span class="math notranslate nohighlight">
+          \(\pi\)
+         </span>
+         :
+        </a>
+       </li>
+      </ul>
+     </li>
+    </ul>
    </li>
   </ul>
  </li>
@@ -342,6 +373,37 @@ const thebe_selector_output = ".output, .cell_output"
       \(\sigma\)
      </span>
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#full-conditional-for-mu">
+       Full Conditional for
+       <span class="math notranslate nohighlight">
+        \(\mu\)
+       </span>
+       :
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#full-conditional-for-sigma-2">
+       Full Conditional for
+       <span class="math notranslate nohighlight">
+        \(\sigma^2\)
+       </span>
+       :
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#full-conditional-for-pi">
+         Full conditional for
+         <span class="math notranslate nohighlight">
+          \(\pi\)
+         </span>
+         :
+        </a>
+       </li>
+      </ul>
+     </li>
+    </ul>
    </li>
   </ul>
  </li>
@@ -393,7 +455,7 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="section" id="id2">
 <h2>Gibbs Sampling<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>The Gibbs Sampling algorithm is an approach to constructing a Markov chain where the probability of the next sample is calculated as the conditional probability given the prior sample.</p>
-<p>Given a target density <span class="math notranslate nohighlight">\(\pi(x_1, \hdots, x_d)\)</span> we sample through sampling from <span class="math notranslate nohighlight">\(\pi(x_i | x{-i})\)</span> to update the <span class="math notranslate nohighlight">\(i^{th}\)</span> component.</p>
+<p>Given a target density <span class="math notranslate nohighlight">\(\pi(x_1, \cdots, x_d)\)</span> we sample through sampling from <span class="math notranslate nohighlight">\(\pi(x_i | x{-i})\)</span> to update the <span class="math notranslate nohighlight">\(i^{th}\)</span> component.</p>
 <p>If our current state is <span class="math notranslate nohighlight">\((x_n, y_n, z_n)\)</span> at the <span class="math notranslate nohighlight">\(n^{th}\)</span> iteration, then we update our parameter values withthe following steps:</p>
 <ol class="simple">
 <li><p>Sample <span class="math notranslate nohighlight">\(x_{n+1} \sim \pi(x | y_n, z_n)\)</span></p></li>
@@ -403,6 +465,106 @@ const thebe_selector_output = ".output, .cell_output"
 <p>At each step of the sampling we use the most recent values of all the other components in the full conditional distribution. <span id="id3">[<a class="reference internal" href="#id7" title="Donald Geman Stuart Geman. Stochastic Relaxation, Gibbs Distributions, and the Bayesian Restoration of Images. IEEE Transactions on Pattern Analysis and Machine Intelligence, 1984. URL: http://image.diku.dk/imagecanon/material/GemanPAMI84.pdf.">SG84</a>]</span> showed that if  <span class="math notranslate nohighlight">\(x\)</span>  is the density of our parameters at the <span class="math notranslate nohighlight">\(n^{th}\)</span> iteration, as <span class="math notranslate nohighlight">\(n \rightarrow \infty\)</span> then <span class="math notranslate nohighlight">\(p(x_n, y_n, z_n) \rightarrow p(x,y,z)\)</span>.</p>
 <div class="section" id="example-gibbs-sampler-for-unknown-mu-and-sigma">
 <h3>Example: Gibbs Sampler for unknown <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span><a class="headerlink" href="#example-gibbs-sampler-for-unknown-mu-and-sigma" title="Permalink to this headline">¶</a></h3>
+<p>First we start by recalling that a gaussian mixture model has the following form:</p>
+<div class="math notranslate nohighlight">
+\[
+p(x|\theta) = \sum_i \pi_i \phi_{\theta_i}
+\]</div>
+<p>where,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+\phi_{\theta_i}(x) &amp; \sim N(\mu_i, \sigma^2_i) \\
+\pi_i &amp; = \text{weight/proportion of $i^{th}$ normal}
+\end{align*}
+\end{split}\]</div>
+<p>We can now define our prior distributions. We’ll use conjugate priors because they allow us to easily compute posterior distributions. We should also point out that the choice of prior hyper parameters can make our calculations easier as well. We define our priors over <span class="math notranslate nohighlight">\(\mu_j,\sigma^2_j,\pi\)</span> as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+p(\pi) &amp; \sim Dir(\alpha)\\
+p(\mu_j) &amp; \sim N(\mu_0 = 0, \tau^2 = 1)\\
+p(\sigma_j^2) &amp; \sim IG(\delta = 1, \psi = 1)
+\end{align*}
+\end{split}\]</div>
+<div class="section" id="full-conditional-for-mu">
+<h4>Full Conditional for <span class="math notranslate nohighlight">\(\mu\)</span>:<a class="headerlink" href="#full-conditional-for-mu" title="Permalink to this headline">¶</a></h4>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+p(\mu|x, z) &amp; = \int_0^{\infty}\int_0^{\infty}p(\theta|x,z)d\pi d\sigma\\
+&amp; \propto \prod_{n=1}^N\prod_{j=1}^K\phi_{\theta_j}(x_i)^{z_j}\prod_{j=1}^K\exp\left[-\frac{\mu_j^2}
+{2}\right]\\
+\end{align*}
+\end{split}\]</div>
+<p>We can stick with a singular instance of <span class="math notranslate nohighlight">\(\mu\)</span> to simplify this a bit and get rid of the product over <span class="math notranslate nohighlight">\(K\)</span> because we know that the calculation is going to be the same for all <span class="math notranslate nohighlight">\(\mu\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+&amp; \propto \prod_{n=1}^N\phi_{\theta_1}(x_i)^{z_1}\exp\left[-\frac{\mu_1^2}{2}\right]\\
+&amp; \propto \exp\left[-\frac{\sum_{i=1}^Nz_{i1}(x_i - \mu_1)^2}{2\sigma_j^2} - \frac{\mu_1^2}{2}\right]\\
+&amp; \propto \exp\left[-\frac{\sum_{i=1}^Nz_{i1}x_i^2 - 2\mu_1x_iz_{i1} + z_{i1}\mu_1^2}{2\sigma_j^2} - \frac{\mu_1^2}{2}\right]\\
+p(\mu | x, z) &amp; \propto \exp\left[-\frac{\sum_{i=1}^Nz_{i1}x_i^2 - 2\mu_1x_iz_{i1} + z_{i1}\mu_1^2 + \sigma^2_j\mu_j^2}{2\sigma_j^2}\right]
+\end{align*}
+\end{split}\]</div>
+<p>Now let <span class="math notranslate nohighlight">\(\sum_{i=1}^Nz_{ij}x_i=\tilde{x_j}\)</span> and <span class="math notranslate nohighlight">\(\sum_{i=1}^Nz_{ij}=n_j\)</span>. We can also see that the first
+term <span class="math notranslate nohighlight">\(\sum_{i=1}^Nz_{i1}x_i^2\)</span> does not depend on <span class="math notranslate nohighlight">\(\mu_j\)</span> so this can be factored out and absorbed into the constant term. We’re going to need to complete the square here to isolate our normal parameters.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+p(\mu | x, z) &amp; \propto \exp\left[-\frac{2\tilde{x_j}\mu_j + (n_j + \sigma^2_j)\mu_j^2}{2\sigma_j^2}\right]\\
+&amp; \propto \exp\left[-(n_j + \sigma^2_j)\frac{\mu_j^2 + 2\left(\frac{\tilde{x_j}}{n_j + \sigma^2_j}\right)\mu_j - \left(\frac{\tilde{x_j}}{n_j + \sigma^2_j}\right)^2 + \left(\frac{\tilde{x_j}}{n_j + \sigma^2_j}\right)^2}{2\sigma_j^2}\right]\\
+&amp; \propto \exp\left[-(n_j + \sigma^2_j)\frac{\left(\mu_j - \frac{\tilde{x_j}}{n_j + \sigma^2_j}\right)^2}{2\sigma_j^2}\right]\\
+p(\mu | x, z) &amp; \sim N\left(\frac{\tilde{x_j}}{n_j + \sigma^2_j}, \frac{\sigma^2_j}{n_j + \sigma^2_j}\right)
+\end{align*}
+\end{split}\]</div>
+<p>Note that if we use the prior
+$<span class="math notranslate nohighlight">\(p(\mu_j|\mu_0,\tau^2) = N(0, \sigma^2_j)\)</span>$ we get:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+p(\mu | x, z) \sim N \left(\frac{\tilde{x_j}}{n_j + 1}, \frac{\sigma^2_j}{n_j + 1}\right)\\
+\end{align*}
+\end{split}\]</div>
+</div>
+<div class="section" id="full-conditional-for-sigma-2">
+<h4>Full Conditional for <span class="math notranslate nohighlight">\(\sigma^2\)</span>:<a class="headerlink" href="#full-conditional-for-sigma-2" title="Permalink to this headline">¶</a></h4>
+<p>Moving on to <span class="math notranslate nohighlight">\(\sigma\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+p(\sigma^2|x, z) &amp; = \int_0^{\infty}\int_0^{\infty}p(\theta|x,z)d\pi d\mu\\
+&amp; \propto \prod_{n=1}^N\prod_{j=1}^K\phi_{\theta_j}(x_i)^{z_j}\prod_{j=1}^K \left(\sigma^2_j\right)^{-2}\exp\left[-\frac{1}{\sigma^2_j}\right]
+\end{align*}
+\end{split}\]</div>
+<p>Again we can isolate to <span class="math notranslate nohighlight">\(j=1\)</span> knowing that it’s the same for all <span class="math notranslate nohighlight">\(j\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+&amp; \propto \prod_{n=1}^N\phi_{\theta_j}(x_i)^{z_j}\left(\sigma^2_j\right)^{-2}\exp\left[-\frac{1}{\sigma^2_j}\right]\\
+&amp; \propto \left(\sigma^2_j\right)^{-\frac{\left(\sum_{i=1}^Nz_{i,j}\right) -2 -2}{2}}\exp\left[-\frac{1}{\sigma^2_j}- \frac{\sum_{i=1}^N(x-\mu_j)^2}{2\sigma^2_j}\right]\\
+&amp; \propto \left(\sigma^2_j\right)^{-\left(\frac{1}{2}n_j + 1\right) - 1}\exp\left[\frac{1 + \frac{1}{2}\sum_{i=1}^N(x-\mu_j)^2}{\sigma^2_j}\right]\\
+&amp; \sim IG\left(\frac{1}{2}n_j + 1, 1 + \frac{1}{2}\sum_{i=1}^N(x-\mu_j)^2\right)
+\end{align*}
+\end{split}\]</div>
+<div class="section" id="full-conditional-for-pi">
+<h5>Full conditional for <span class="math notranslate nohighlight">\(\pi\)</span>:<a class="headerlink" href="#full-conditional-for-pi" title="Permalink to this headline">¶</a></h5>
+<!-- $$
+\begin{align*}
+p(\pmb{\pi}) &amp; \sim Dir(\pmb{\alpha})\\
+p(\mu_j) &amp; \sim N(\mu_0 = 0, \tau^2 = 1)\\
+p(\sigma_j^2) &amp; \sim IG(\delta = 1, \psi = 1)
+\end{align*}
+$$ -->
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+% p(\pi|x, z, \pmb{\sigma}, \pmb{\mu}) &amp;amp; \propto \prod_{j=1}^K \pi_j^{\alpha_j - 1 + \sum_{i=1}^N z_i}\\
+p(\pi|x, z) &amp; \sim Dir\left(\sum_{i=1}^Nz_1 + \alpha_1, ..., \sum_{i=1}^Nz_k + \alpha_k\right) 
+\end{align*}\
+\end{split}\]</div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="references">
