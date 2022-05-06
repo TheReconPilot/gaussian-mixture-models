@@ -6,7 +6,6 @@ import scipy.stats as st
 from scipy.stats import invgamma, norm, dirichlet, multivariate_normal
 from distcan import InverseGamma
 import pandas as pd
-from tqdm import tqdm
 from multiprocessing import Pool, cpu_count
 from sklearn.metrics import rand_score, adjusted_rand_score, silhouette_score
 
@@ -89,7 +88,7 @@ def gibbs(data, iters, burnin, k, seed=None):
         sigma = InverseGamma(1,1).rvs(size=k)
         out = np.empty((iters, k*3))
 
-        for i in tqdm(range(iters)):
+        for i in range(iters):
             # Update Parameters according to conditional posterior distributions
             z_mat = update_z(data, mu, sigma, pi)
             pi = update_pi(alpha, np.sum(z_mat, axis=0))
