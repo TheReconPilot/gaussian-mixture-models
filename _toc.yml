@@ -17,3 +17,6 @@ parts:
   chapters:
   - file: Gibbs-Sampling/theory
   - file: Gibbs-Sampling/Unknown-mu-sigma-Playground
+- caption: EM vs GS
+  chapters:
+  - file: EMvsGS/EMvsGS-Results
