@@ -33,13 +33,20 @@ plt.rcParams["figure.figsize"] = [10,6]
 
 [0;31m---------------------------------------------------------------------------[0m
 [0;31mModuleNotFoundError[0m                       Traceback (most recent call last)
-Input [0;32mIn [1][0m, in [0;36m<cell line: 7>[0;34m()[0m
-[1;32m      4[0m [38;5;28;01mfrom[39;00m [38;5;21;01mscipy[39;00m[38;5;21;01m.[39;00m[38;5;21;01mstats[39;00m [38;5;28;01mimport[39;00m norm
+Input [0;32mIn [1][0m, in [0;36m<cell line: 8>[0;34m()[0m
 [1;32m      5[0m [38;5;28;01mfrom[39;00m [38;5;21;01msklearn[39;00m[38;5;21;01m.[39;00m[38;5;21;01mmetrics[39;00m [38;5;28;01mimport[39;00m rand_score, adjusted_rand_score, silhouette_score
-[0;32m----> 7[0m [38;5;28;01mfrom[39;00m [38;5;21;01mutils[39;00m [38;5;28;01mimport[39;00m proportion
-[1;32m      8[0m [38;5;28;01mfrom[39;00m [38;5;21;01mgibbs_sampler[39;00m [38;5;28;01mimport[39;00m gibbs, multigibbs_gibbs, data_gen, make_param_dict, pred_label, score
+[1;32m      7[0m [38;5;28;01mfrom[39;00m [38;5;21;01mutils[39;00m [38;5;28;01mimport[39;00m proportion
+[0;32m----> 8[0m [38;5;28;01mfrom[39;00m [38;5;21;01mgibbs_sampler[39;00m [38;5;28;01mimport[39;00m gibbs, multigibbs_gibbs, data_gen, make_param_dict, pred_label, score
 [1;32m     10[0m [38;5;66;03m# from matplotlib.pyplot import figure[39;00m
+[1;32m     12[0m plt[38;5;241m.[39mrcParams[[38;5;124m"[39m[38;5;124mfigure.figsize[39m[38;5;124m"[39m] [38;5;241m=[39m [[38;5;241m10[39m,[38;5;241m6[39m]
 
-[0;31mModuleNotFoundError[0m: No module named 'utils'
-ModuleNotFoundError: No module named 'utils'
+File [0;32m~/work/gaussian-mixture-models/gaussian-mixture-models/Gibbs-Sampling/gibbs_sampler.py:7[0m, in [0;36m<module>[0;34m[0m
+[1;32m      5[0m [38;5;28;01mimport[39;00m [38;5;21;01mscipy[39;00m[38;5;21;01m.[39;00m[38;5;21;01mstats[39;00m [38;5;28;01mas[39;00m [38;5;21;01mst[39;00m
+[1;32m      6[0m [38;5;28;01mfrom[39;00m [38;5;21;01mscipy[39;00m[38;5;21;01m.[39;00m[38;5;21;01mstats[39;00m [38;5;28;01mimport[39;00m invgamma, norm, dirichlet, multivariate_normal
+[0;32m----> 7[0m [38;5;28;01mfrom[39;00m [38;5;21;01mdistcan[39;00m [38;5;28;01mimport[39;00m InverseGamma
+[1;32m      8[0m [38;5;28;01mimport[39;00m [38;5;21;01mpandas[39;00m [38;5;28;01mas[39;00m [38;5;21;01mpd[39;00m
+[1;32m      9[0m [38;5;28;01mfrom[39;00m [38;5;21;01mtqdm[39;00m [38;5;28;01mimport[39;00m tqdm
+
+[0;31mModuleNotFoundError[0m: No module named 'distcan'
+ModuleNotFoundError: No module named 'distcan'
 

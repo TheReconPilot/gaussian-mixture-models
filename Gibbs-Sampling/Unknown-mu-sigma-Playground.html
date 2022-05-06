@@ -301,14 +301,21 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="nn">Input In [1],</span> in <span class="ni">&lt;cell line: 7&gt;</span><span class="nt">()</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+<span class="nn">Input In [1],</span> in <span class="ni">&lt;cell line: 8&gt;</span><span class="nt">()</span>
 <span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">rand_score</span><span class="p">,</span> <span class="n">adjusted_rand_score</span><span class="p">,</span> <span class="n">silhouette_score</span>
-<span class="ne">----&gt; </span><span class="mi">7</span> <span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="n">proportion</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="kn">from</span> <span class="nn">gibbs_sampler</span> <span class="kn">import</span> <span class="n">gibbs</span><span class="p">,</span> <span class="n">multigibbs_gibbs</span><span class="p">,</span> <span class="n">data_gen</span><span class="p">,</span> <span class="n">make_param_dict</span><span class="p">,</span> <span class="n">pred_label</span><span class="p">,</span> <span class="n">score</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="n">proportion</span>
+<span class="ne">----&gt; </span><span class="mi">8</span> <span class="kn">from</span> <span class="nn">gibbs_sampler</span> <span class="kn">import</span> <span class="n">gibbs</span><span class="p">,</span> <span class="n">multigibbs_gibbs</span><span class="p">,</span> <span class="n">data_gen</span><span class="p">,</span> <span class="n">make_param_dict</span><span class="p">,</span> <span class="n">pred_label</span><span class="p">,</span> <span class="n">score</span>
 <span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="c1"># from matplotlib.pyplot import figure</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;figure.figsize&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span>
 
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;utils&#39;
+<span class="n">File</span> <span class="o">~/</span><span class="n">work</span><span class="o">/</span><span class="n">gaussian</span><span class="o">-</span><span class="n">mixture</span><span class="o">-</span><span class="n">models</span><span class="o">/</span><span class="n">gaussian</span><span class="o">-</span><span class="n">mixture</span><span class="o">-</span><span class="n">models</span><span class="o">/</span><span class="n">Gibbs</span><span class="o">-</span><span class="n">Sampling</span><span class="o">/</span><span class="n">gibbs_sampler</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">7</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">st</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">invgamma</span><span class="p">,</span> <span class="n">norm</span><span class="p">,</span> <span class="n">dirichlet</span><span class="p">,</span> <span class="n">multivariate_normal</span>
+<span class="ne">----&gt; </span><span class="mi">7</span> <span class="kn">from</span> <span class="nn">distcan</span> <span class="kn">import</span> <span class="n">InverseGamma</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;distcan&#39;
 </pre></div>
 </div>
 </div>
