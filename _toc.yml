@@ -16,3 +16,4 @@ parts:
 - caption: Gibbs Sampling
   chapters:
   - file: Gibbs-Sampling/theory
+  - file: Gibbs-Sampling/Unknown-mu-sigma-Playground
